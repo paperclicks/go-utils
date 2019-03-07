@@ -9,9 +9,9 @@ import (
 	"strings"
 )
 
-//getFileWriter gets a filename as input, and if the file exists returns a writer to the file.
+//GetFileWriter gets a filename as input, and if the file exists returns a writer to the file.
 //If the file does not exist creates a new file and returns the writer
-func getFileWriter(fileName string) (io.Writer, error) {
+func GetFileWriter(fileName string) (io.Writer, error) {
 
 	//check if file exists
 	var _, err = os.Stat(fileName)
@@ -35,9 +35,9 @@ func getFileWriter(fileName string) (io.Writer, error) {
 	return out, err
 }
 
-//isValidWidget checks if a widget value is empty or equal to a traffic source token
+//IsValidWidget checks if a widget value is empty or equal to a traffic source token
 //(meaning that the widget was not replaced correctly)
-func isValidWidget(widgetID string) bool {
+func IsValidWidget(widgetID string) bool {
 
 	if widgetID == "" {
 		return false
@@ -81,7 +81,7 @@ func isValidWidget(widgetID string) bool {
 }
 
 //sanitizeString takes in input a string and removes possible starting/ending whitespaces and special chars as /n, /r, /t
-func sanitizeString(str string) string {
+func SanitizeString(str string) string {
 	//remove whitespaces
 	s := strings.TrimSpace(str)
 
@@ -97,8 +97,8 @@ func sanitizeString(str string) string {
 	return s
 }
 
-//getIntegerEnv is a helper to get an int ENV value, or fallback to a default value if that env is not set
-func getIntegerEnv(env string, fallback int) int {
+//GetIntegerEnv is a helper to get an int ENV value, or fallback to a default value if that env is not set
+func GetIntegerEnv(env string, fallback int) int {
 
 	//try to parse the value from the given env variable
 	value, err := strconv.Atoi(os.Getenv(env))
@@ -110,8 +110,8 @@ func getIntegerEnv(env string, fallback int) int {
 	return value
 }
 
-//getStringEnv is a helper to get a string ENV value, or fallback to a default value if that ENV is not set
-func getStringEnv(env string, fallback string) string {
+//GetStringEnv is a helper to get a string ENV value, or fallback to a default value if that ENV is not set
+func GetStringEnv(env string, fallback string) string {
 
 	//try to parse the value from the given env variable
 	value, ok := os.LookupEnv(env)
@@ -124,8 +124,8 @@ func getStringEnv(env string, fallback string) string {
 	return value
 }
 
-//fileContainsString takes in input a string and file path and checks if the string is present if the file content
-func fileContainsString(s string, file string) bool {
+//FileContainsString takes in input a string and file path and checks if the string is present if the file content
+func FileContainsString(s string, file string) bool {
 
 	// read the file
 	buff, err := ioutil.ReadFile(file)
@@ -143,7 +143,7 @@ func fileContainsString(s string, file string) bool {
 	return false
 }
 
-func queueName(name string) string {
+func QueueName(name string) string {
 
 	//if ENVIRONMENT=local then use "local" as a postfix for queues
 	postfix := ""
