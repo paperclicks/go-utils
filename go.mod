@@ -1,4 +1,4 @@
-module gitlab.com/paperclicks/go-utils
+module github.com/paperclicks/go-utils
 
 go 1.19
 
