@@ -7,10 +7,12 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/paperclicks/golog"
 )
 
-//GetFileWriter gets a filename as input, and if the file exists returns a writer to the file.
-//If the file does not exist creates a new file and returns the writer
+// GetFileWriter gets a filename as input, and if the file exists returns a writer to the file.
+// If the file does not exist creates a new file and returns the writer
 func GetFileWriter(fileName string) (io.Writer, error) {
 
 	//check if file exists
@@ -35,8 +37,8 @@ func GetFileWriter(fileName string) (io.Writer, error) {
 	return out, err
 }
 
-//IsValidWidget checks if a widget value is empty or equal to a traffic source token
-//(meaning that the widget was not replaced correctly)
+// IsValidWidget checks if a widget value is empty or equal to a traffic source token
+// (meaning that the widget was not replaced correctly)
 func IsValidWidget(widgetID string) bool {
 
 	if widgetID == "" {
@@ -80,7 +82,7 @@ func IsValidWidget(widgetID string) bool {
 	return true
 }
 
-//sanitizeString takes in input a string and removes possible starting/ending whitespaces and special chars as /n, /r, /t
+// sanitizeString takes in input a string and removes possible starting/ending whitespaces and special chars as /n, /r, /t
 func SanitizeString(str string) string {
 	//remove whitespaces
 	s := strings.TrimSpace(str)
@@ -97,7 +99,7 @@ func SanitizeString(str string) string {
 	return s
 }
 
-//GetIntegerEnv is a helper to get an int ENV value, or fallback to a default value if that env is not set
+// GetIntegerEnv is a helper to get an int ENV value, or fallback to a default value if that env is not set
 func GetIntegerEnv(env string, fallback int) int {
 
 	//try to parse the value from the given env variable
@@ -110,7 +112,7 @@ func GetIntegerEnv(env string, fallback int) int {
 	return value
 }
 
-//GetStringEnv is a helper to get a string ENV value, or fallback to a default value if that ENV is not set
+// GetStringEnv is a helper to get a string ENV value, or fallback to a default value if that ENV is not set
 func GetStringEnv(env string, fallback string) string {
 
 	//try to parse the value from the given env variable
@@ -124,7 +126,7 @@ func GetStringEnv(env string, fallback string) string {
 	return value
 }
 
-//FileContainsString takes in input a string and file path and checks if the string is present if the file content
+// FileContainsString takes in input a string and file path and checks if the string is present if the file content
 func FileContainsString(s string, file string) bool {
 
 	// read the file
@@ -154,4 +156,11 @@ func QueueName(name string) string {
 	queueName := fmt.Sprintf("%s%s", name, postfix)
 
 	return queueName
+}
+
+func GetLogger(logLevel int) *golog.Golog {
+	gologger := golog.New(os.Stdout)
+	gologger.ShowCallerInfo = true
+	gologger.SetLogLevel(logLevel)
+	return gologger
 }
